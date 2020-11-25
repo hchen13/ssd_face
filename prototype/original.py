@@ -115,27 +115,6 @@ class SSD(BaseSSD):
         self.model.get_layer(name='conv6').set_weights([conv6_w, conv6_b])
         self.model.get_layer(name='conv7').set_weights([conv7_w, conv7_b])
 
-    # def detect(self, image, threshold=.5):
-    #     input_image = image / 127.5 - 1.
-    #     if input_image.ndim != 4:
-    #         input_image = np.expand_dims(input_image, axis=0)
-    #     conf_pred, offsets_pred, anchors = self.model.predict(input_image)
-    #     conf_pred = conf_pred.squeeze(axis=-1)
-    #     conf_pred = conf_pred.squeeze(axis=0)
-    #     offsets_pred = offsets_pred.squeeze(axis=0)
-    #     anchors = anchors.squeeze(axis=0)
-    #     box = np.empty_like(anchors)
-    #     box[:, 0] = offsets_pred[:, 0] * anchors[:, 2] + anchors[:, 0]
-    #     box[:, 1] = offsets_pred[:, 1] * anchors[:, 3] + anchors[:, 1]
-    #     box[:, 2] = np.exp(offsets_pred[:, 2]) * anchors[:, 2]
-    #     box[:, 3] = np.exp(offsets_pred[:, 3]) * anchors[:, 3]
-    #     positive_indices = np.where(conf_pred > threshold)
-    #     positive_boxes = box[positive_indices]
-    #     scores = conf_pred[positive_indices]
-    #     positive_boxes_minmax = convert_box_coordinates(positive_boxes, mode_from='centroid', mode_to='minmax')
-    #     boxes, scores = non_max_suppression(scores, positive_boxes_minmax, method='min', threshold=.5)
-    #     return boxes, scores
-
 
 if __name__ == '__main__':
     aspect_ratios = [1., 1 / 2, 2, 2 / 3, 3 / 2, 3 / 4, 4 / 3]
