@@ -99,9 +99,9 @@ if __name__ == '__main__':
     else:  # 训练机
         dataset_root = '/media/ethan/DataStorage/WIDER_SSD/'
         epochs = 100
-        batch_size = 32
+        batch_size = 16
 
-    lr = 3e-4
+    lr = 1e-5
     eval_steps = 1000
     _continue_train = True
 

@@ -20,36 +20,9 @@ if __name__ == '__main__':
     batch_size = 4
 
     aspect_ratios = [1., 1 / 2, 2, 2 / 3, 3 / 2, 3 / 4, 4 / 3]
-    m1 = pvanet.SSD(aspect_ratios=aspect_ratios)
-    m2 = original.SSD(aspect_ratios=aspect_ratios)
-
-    image = cv2.imread('/Users/ethan/Pictures/things/face_test2.jpg')
-    m1.detect(image)
-    m2.detect(image)
-
-    def get_size(f):
-        f.seek(0, 2)
-        return f.tell()
-    f1 = open('weights/temp/tmp_e1.h5')
-    f2 = open('weights/ssd_vgg16.h5')
-
-    print(f'image size: {image.shape}')
-    n = 10
-    tick = datetime.now()
-    for _ in range(n):
-        d = m1.detect(image)
-    tock = datetime.now()
-    print(f"PVANet weight file size: {get_size(f1) / 1024 / 1024:.2f}MB")
-    print(f"PVANet SSD inference time: {(tock - tick).total_seconds() / n:.2f} seconds\n")
-
-    tick = datetime.now()
-    for _ in range(n):
-        d = m2.detect(image)
-    tock = datetime.now()
-    print(f"original weight file size: {get_size(f2) / 1024 / 1024:.2f}MB")
-    print(f"original VGG-based SSD inference time: {(tock - tick).total_seconds() / n:.2f} seconds\n")
-    f1.close()
-    f2.close()
-    # ssd.init_pvanet(os.path.join(PROJECT_ROOT, 'weights', 'pvanet_init.h5'))
-    # ssd.model.save_weights('weights/temp/test.h5')
-    # ssd.model.load_weights('weights/temp/test.h5', by_name=True)
+    ssd = pvanet.SSD(aspect_ratios=aspect_ratios)
+    # ssd.freeze_layers('conv2_3')
+    ssd.model.load_weights('test.h5', by_name=True)
+    # for layer in ssd.model.layers:
+    #     layer.trainable = True
+    # ssd.model.save_weights('test.h5')

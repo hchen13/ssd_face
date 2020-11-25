@@ -73,3 +73,7 @@ class BaseSSD:
             layer.trainable = False
             if layer.name == stop_name:
                 break
+
+    def unfreeze_layers(self):
+        for layer in self.model.layers:
+            layer.trainable = True
